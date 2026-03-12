@@ -50,7 +50,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
-      "jest --coverage --bail --findRelatedTests --passWithNoTests"
+      "jest --coverage --bail --findRelatedTests"
     ]
   }
 }
