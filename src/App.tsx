@@ -1,10 +1,24 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
+import { Dashboard, LoginPage, NotFoundPage } from "./pages";
+
 function App() {
   return (
-    <>
-      <div className="bg-blue-500 text-white p-4">
-        <h1 className="text-2xl font-bold">Task Management App</h1>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
