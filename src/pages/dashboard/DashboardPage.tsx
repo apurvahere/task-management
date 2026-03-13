@@ -69,16 +69,21 @@ const DashboardPage = () => {
         </Button>
       </div>
 
-      {!loading && tasks.length === 0 && (
-        <p className="text-gray-500">No tasks available</p>
-      )}
-
       <Tabs tabs={TASK_TABS} activeTab={activeTab} onChange={setActiveTab} />
+
+      {!loading && filteredTasks.length === 0 && (
+        <p className="text-gray-500">
+          {activeTab === "all"
+            ? "No tasks available"
+            : `No tasks in ${activeTab} status`}
+        </p>
+      )}
 
       <div className="space-y-3">
         {filteredTasks.map((task: Task) => (
           <div
             key={task.id}
+            data-testid="task-card"
             className="border p-4 rounded-lg flex justify-between items-start sm:items-center shadow-sm bg-white dark:border dark:border-white dark:bg-gray-700"
           >
             <div className="flex flex-col gap-1 flex-1 min-w-0 max-w-[70%]">
@@ -114,6 +119,7 @@ const DashboardPage = () => {
                 prefixIcon={<FaRegEdit />}
                 onClick={() => handleEdit(task)}
                 className="!p-1.5 sm:!px-3 sm:!py-2 rounded-sm"
+                data-testid="edit-button"
               >
                 <span className="hidden sm:inline">Edit</span>
               </Button>
@@ -123,6 +129,7 @@ const DashboardPage = () => {
                 prefixIcon={<MdDeleteForever className="text-lg" />}
                 onClick={() => dispatch(deleteTask(task.id))}
                 className="!p-1.5 sm:!px-3 sm:!py-2 rounded-sm"
+                data-testid="delete-button"
               >
                 <span className="hidden sm:inline">Delete</span>
               </Button>
